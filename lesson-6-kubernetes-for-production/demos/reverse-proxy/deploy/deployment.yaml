@@ -1,19 +1,22 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: nginx-deployment
   labels:
-    service: reverseproxy
-  name: reverseproxy
+    app: nginx  
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: nginx  
   template:
     metadata:
       labels:
-        service: reverseproxy
+        app: nginx
     spec:
       containers:
-      - image: YOUR_DOCKER_HUB/simple-reverse-proxy
-        name: reverseproxy
+      - image: halzamly/simple-reverse-proxy
+        name: nginx
         imagePullPolicy: Always          
         resources:
           requests:
